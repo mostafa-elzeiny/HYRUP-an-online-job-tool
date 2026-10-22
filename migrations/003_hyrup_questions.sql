@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS hyrup_expert_questions (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), expert_id UUID REFERENCES hyrup_experts(id) ON DELETE SET NULL, question TEXT NOT NULL, field TEXT NOT NULL, preferred_format TEXT NOT NULL DEFAULT 'Message / written advice', contact_email TEXT, status TEXT NOT NULL DEFAULT 'open', created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
