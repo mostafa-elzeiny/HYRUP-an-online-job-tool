@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS hyrup_jobs (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), title TEXT NOT NULL, company TEXT NOT NULL, location TEXT NOT NULL, job_type TEXT NOT NULL DEFAULT 'Full-time', experience_level TEXT NOT NULL DEFAULT 'Entry level', description TEXT NOT NULL, salary TEXT, apply_url TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
