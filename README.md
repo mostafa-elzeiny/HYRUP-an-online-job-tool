@@ -3,23 +3,25 @@
 HYRUP is a static job-discovery and expert-discovery web app.
 
 ## Pages
-- `index.html` — job board, filters, saved jobs, application tracking, and job-posting preview.
+- `index.html` — job board, filters, saved jobs, application tracking, and job-posting form.
 - `experts.html` — sample expert directory and question forms.
 
 ## Deploy on Vercel
 1. Import this GitHub repository into Vercel.
 2. Framework preset: **Other**.
 3. Build command: leave empty.
-4. Output directory: leave empty / use the repository root for this static HTML site.
+4. Output directory: leave empty so Vercel serves the root static files.
 5. Deploy.
 
-The main files are at the repository root for simple static hosting.
+## Supabase setup
+1. In Supabase, open **SQL Editor** and run `supabase/schema.sql`.
+2. In Project Settings > API Keys, copy the **Publishable key** (often begins `sb_publishable_`). The legacy anon key is also supported.
+3. In `supabase-config.js`, set `supabasePublishableKey` to that key. The project URL has been prefilled from the project reference you provided.
+4. Commit the change and redeploy Vercel.
 
-## Database setup (Supabase)
-1. Create a Supabase project.
-2. Open **SQL Editor** and run `supabase/schema.sql`.
-3. Copy the Project URL and publishable/anon key from the Supabase project's API settings.
-4. The current front-end is still in preview mode and uses browser localStorage for saved jobs, applications, custom jobs, and expert questions. The Supabase schema is prepared, but the UI is **not connected to Supabase yet**; wire the client and data operations before treating submissions as shared/persistent data.
+The front-end integration reads community jobs from `hyrup_jobs`, inserts job posts into that table, and inserts questions into `hyrup_expert_questions`. Saved jobs and application tracking still use browser localStorage. Expert cards are sample/demo profiles and are not yet loaded from `hyrup_experts`.
 
-## Demo content
-Job listings and expert profiles are sample/demo content. Expert names, ratings, and session counts are not verified real-world listings.
+## Important
+- Never put a Supabase `service_role` or secret key in browser code.
+- The SQL policies allow public job submissions and public question submissions; add authentication, spam controls, and moderation before launching as a production marketplace.
+- Expert names, ratings, and session counts are demonstration content, not verified real listings.
